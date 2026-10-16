@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.css"
+        integrity="sha512-x9WwyMYBnlXMNQ6kQ/Lyzu1NqIhLQKL5Oq6xByfXuRj7s9CskyCbLv/1IjqzJmXwFXWr0ov6jBV7Qbc0hh9nHg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+
+<body
+    class="relative flex min-h-screen items-center justify-center overflow-x-hidden bg-gradient-to-br from-emerald-50 via-white to-green-100 px-4 py-8 text-slate-800">
+
+    <!-- Background -->
+    <div class="pointer-events-none fixed -left-24 -top-24 h-64 w-64 rounded-full bg-emerald-300/40 blur-3xl"></div>
+    <div class="pointer-events-none fixed -bottom-24 -right-20 h-72 w-72 rounded-full bg-green-300/40 blur-3xl"></div>
+
+    <!-- Main card -->
+    <main
+        class="relative w-full max-w-md overflow-hidden rounded-2xl border border-white bg-white/90 shadow-xl shadow-emerald-950/10 backdrop-blur-sm">
+
+        <!-- Header -->
+        <div class="border-b border-slate-100 px-6 pb-5 pt-6 text-center">
+            <div
+                class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-xl text-emerald-700 ring-1 ring-emerald-100">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+
+            <h1 class="text-2xl font-bold tracking-tight text-slate-800">
+                Password Generator
+            </h1>
+
+            <p class="mt-1 text-sm text-slate-500">
+                Create a strong password in seconds.
+            </p>
+        </div>
+
+        <!-- Password display -->
+        <section class="px-6 pb-5 pt-5">
+            <label class="mb-2 block text-sm font-semibold text-slate-700">
+                Your password
+            </label>
+
+            <div
+                class="flex min-h-14 items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-3 transition-colors focus-within:border-emerald-300">
+                <span id="new-pass"
+                    class="min-w-0 flex-1 break-all font-mono text-base font-semibold tracking-wide text-emerald-800">
+                </span>
+
+                <button type="button" id="copy-btn"
+                    class="flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-slate-500 transition-all hover:bg-emerald-100 hover:text-emerald-800 active:scale-95"
+                    title="Copy password" aria-label="Copy password">
+                    <i class="fa-regular fa-copy"></i>
+                </button>
+            </div>
+
+            <p id="copy-message" role="status" class="mt-2 hidden text-xs font-medium text-emerald-600">
+                <i class="fa-solid fa-check mr-1"></i>
+                Password copied to clipboard!
+            </p>
+
+            <!-- Password length -->
+            <div class="mt-5">
+                <div class="mb-3 flex items-center justify-between">
+                    <label for="range" class="text-sm font-semibold text-slate-700">
+                        Password length
+                    </label>
+
+                    <span
+                        class="rounded-lg bg-emerald-50 px-3 py-1 text-sm font-bold tabular-nums text-emerald-800 ring-1 ring-emerald-100">
+                        <span id="range-value">16</span> characters
+                    </span>
+                </div>
+
+                <input type="range" id="range" min="6" max="50" value="16"
+                    class="h-2 w-full cursor-pointer appearance-none rounded-full bg-emerald-100 accent-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-4">
+
+                <div class="mt-2 flex justify-between text-xs text-slate-400">
+                    <span>6 characters</span>
+                    <span>50 characters</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Password options -->
+        <section class="border-t border-slate-100 px-6 py-5">
+            <h2 class="mb-3 text-sm font-semibold text-slate-700">
+                Include characters
+            </h2>
+
+            <form action="" class="grid grid-cols-2 gap-3">
+                <label for="uppercase"
+                    class="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-200 px-3 py-3 text-sm transition-all hover:border-emerald-200 hover:bg-emerald-50/60">
+                    <input type="checkbox" name="uppercase" id="uppercase"
+                        class="h-4 w-4 cursor-pointer rounded border-slate-300 accent-emerald-600 focus:ring-emerald-300">
+                    <span>Uppercase <span class="text-xs text-slate-400">(A–Z)</span></span>
+                </label>
+
+                <label for="lowercase"
+                    class="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-200 px-3 py-3 text-sm transition-all hover:border-emerald-200 hover:bg-emerald-50/60">
+                    <input type="checkbox" name="lowercase" id="lowercase"
+                        class="h-4 w-4 cursor-pointer rounded border-slate-300 accent-emerald-600 focus:ring-emerald-300">
+                    <span>Lowercase <span class="text-xs text-slate-400">(a–z)</span></span>
+                </label>
+
+                <label for="number"
+                    class="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-200 px-3 py-3 text-sm transition-all hover:border-emerald-200 hover:bg-emerald-50/60">
+                    <input type="checkbox" name="number" id="number"
+                        class="h-4 w-4 cursor-pointer rounded border-slate-300 accent-emerald-600 focus:ring-emerald-300">
+                    <span>Numbers <span class="text-xs text-slate-400">(0–9)</span></span>
+                </label>
+
+                <label for="symbol"
+                    class="flex cursor-pointer items-center gap-2.5 rounded-lg border border-slate-200 px-3 py-3 text-sm transition-all hover:border-emerald-200 hover:bg-emerald-50/60">
+                    <input type="checkbox" name="symbol" id="symbol"
+                        class="h-4 w-4 cursor-pointer rounded border-slate-300 accent-emerald-600 focus:ring-emerald-300">
+                    <span>Symbols <span class="text-xs text-slate-400">(!@#)</span></span>
+                </label>
+            </form>
+
+            <!-- Generate button -->
+            <div class="mt-5">
+                <button id="gen-pass"
+                    class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white shadow-md shadow-emerald-700/20 transition-all hover:bg-emerald-800 hover:shadow-lg hover:shadow-emerald-700/25 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-offset-2">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Generate Password
+                </button>
+
+                <p id="error-message" role="alert" class="mt-3 hidden text-center text-sm font-medium text-red-500">
+                    <i class="fa-solid fa-circle-exclamation mr-1"></i>
+                    Please select at least one option.
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="border-t border-slate-100 bg-slate-50/70 px-6 py-3 text-center">
+            <p class="text-xs text-slate-400">
+                <i class="fa-solid fa-lock mr-1"></i>
+                Generated locally in your browser.
+            </p>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
